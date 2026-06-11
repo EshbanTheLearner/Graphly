@@ -11,6 +11,7 @@ export default function App() {
   const [input, setInput] = useState(`Start[start,color=#bbf7d0] --> Plan[process,color=#bfdbfe] : begin
 Plan --> Check[decision,color=#fde68a] : review
 Check --> End[end,color=#fecaca] : approved`);
+  const [transparentExport, setTransparentExport] = useState(true);
 
   const graphRef = useRef(null);
 
@@ -45,7 +46,21 @@ Check --> End[end,color=#fecaca] : approved`);
               <span>{graph.nodes.length} nodes</span>
               <span>{graph.edges.length} edges</span>
             </div>
-            <ExportButton targetRef={graphRef} />
+            <div className="export-controls">
+              <label className="toggle-row">
+                <input
+                  type="checkbox"
+                  checked={transparentExport}
+                  onChange={(event) => setTransparentExport(event.target.checked)}
+                />
+                <span>Transparent</span>
+              </label>
+              <ExportButton
+                targetRef={graphRef}
+                nodes={graph.nodes}
+                transparentBackground={transparentExport}
+              />
+            </div>
           </div>
         </aside>
 
