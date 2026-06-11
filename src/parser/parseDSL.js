@@ -1,7 +1,7 @@
 export function parseDSL(input) {
   const lines = input
     .split("\n")
-    .map(l => l.trim())
+    .map((line) => line.trim())
     .filter(Boolean);
 
   const nodesSet = new Set();
@@ -19,7 +19,7 @@ export function parseDSL(input) {
     edges.push({ from, to });
   }
 
-  const nodes = Array.from(nodesSet).map(id => ({
+  const nodes = Array.from(nodesSet).map((id) => ({
     id,
     label: id
   }));
