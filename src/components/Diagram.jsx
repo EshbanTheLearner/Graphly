@@ -1,5 +1,10 @@
 import ReactFlow from "reactflow";
 import "reactflow/dist/style.css";
+import GraphNode from "./GraphNode";
+
+const nodeTypes = {
+  graphNode: GraphNode
+};
 
 export default function Diagram({ nodes, edges }) {
   return (
@@ -7,6 +12,7 @@ export default function Diagram({ nodes, edges }) {
       <ReactFlow
         nodes={nodes}
         edges={edges}
+        nodeTypes={nodeTypes}
         fitView
         nodesDraggable={true}
       />

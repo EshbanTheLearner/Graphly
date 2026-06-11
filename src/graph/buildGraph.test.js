@@ -20,4 +20,25 @@ describe("buildGraph", () => {
       target: "B"
     });
   });
+
+  it("passes node metadata and edge labels through", () => {
+    const input = {
+      nodes: [{ id: "A", label: "A", type: "decision", color: "yellow" }],
+      edges: [{ from: "A", to: "B", label: "yes" }]
+    };
+
+    const result = buildGraph(input);
+
+    expect(result.nodes[0]).toMatchObject({
+      type: "graphNode",
+      data: {
+        label: "A",
+        nodeType: "decision",
+        color: "yellow"
+      }
+    });
+    expect(result.edges[0]).toMatchObject({
+      label: "yes"
+    });
+  });
 });

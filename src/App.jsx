@@ -8,9 +8,9 @@ import { buildGraph } from "./graph/buildGraph";
 import { applyLayout } from "./layout/layout";
 
 export default function App() {
-  const [input, setInput] = useState(`A --> B
-B --> C
-A --> D`);
+  const [input, setInput] = useState(`Start[start,color=#bbf7d0] --> Plan[process,color=#bfdbfe] : begin
+Plan --> Check[decision,color=#fde68a] : review
+Check --> End[end,color=#fecaca] : approved`);
 
   const graphRef = useRef(null);
 

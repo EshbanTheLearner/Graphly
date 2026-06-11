@@ -36,4 +36,25 @@ describe("parseDSL", () => {
 
     expect(result.edges).toEqual([{ from: "A", to: "B" }]);
   });
+
+  it("parses edge labels", () => {
+    const result = parseDSL("A --> B : starts flow");
+
+    expect(result.edges).toEqual([
+      { from: "A", to: "B", label: "starts flow" }
+    ]);
+  });
+
+  it("parses node types and colors", () => {
+    const result = parseDSL(
+      "Start[start,color=green] --> Check[type=decision,color=#fde68a]"
+    );
+
+    expect(result.nodes).toEqual(
+      expect.arrayContaining([
+        { id: "Start", label: "Start", type: "start", color: "green" },
+        { id: "Check", label: "Check", type: "decision", color: "#fde68a" }
+      ])
+    );
+  });
 });

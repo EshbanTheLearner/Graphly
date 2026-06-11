@@ -4,6 +4,9 @@ Graphly is a lightweight tool that turns simple text-based graph syntax into int
 ## Features
 
 - Simple DSL (A --> B)
+- Edge labels
+- Colored nodes
+- Node types: start, end, process, decision
 - Automatic graph layout (Dagre)
 - Interactive diagram (React Flow)
 - Export to PNG
@@ -13,6 +16,15 @@ Graphly is a lightweight tool that turns simple text-based graph syntax into int
 A --> B <br>
 B --> C <br>
 A --> D
+
+## Level 2 DSL
+```txt
+Start[start,color=#bbf7d0] --> Plan[process,color=#bfdbfe] : begin
+Plan --> Check[decision,color=#fde68a] : review
+Check --> End[end,color=#fecaca] : approved
+```
+
+Node metadata goes inside brackets. The first bare value is treated as the node type, and key/value attributes can be used for `type` and `color`.
 
 
 ## Install
