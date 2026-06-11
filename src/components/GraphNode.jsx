@@ -8,10 +8,10 @@ const typeStyles = {
     borderRadius: 999
   },
   process: {
-    borderRadius: 6
+    borderRadius: 8
   },
   decision: {
-    borderRadius: 4,
+    borderRadius: 8,
     transform: "rotate(45deg)"
   }
 };
@@ -35,6 +35,7 @@ export default function GraphNode({ data }) {
 
   return (
     <div
+      className="graph-node"
       style={{
         ...baseStyle,
         ...typeStyles[nodeType],
@@ -50,14 +51,14 @@ export default function GraphNode({ data }) {
 
 const baseStyle = {
   alignItems: "center",
-  border: "1px solid #64748b",
-  boxShadow: "0 1px 3px rgba(15, 23, 42, 0.12)",
+  border: "1px solid rgba(15, 23, 42, 0.18)",
+  boxShadow: "0 14px 30px rgba(15, 23, 42, 0.16)",
   color: "#0f172a",
   display: "flex",
   fontSize: 14,
-  fontWeight: 600,
-  height: 48,
+  fontWeight: 700,
+  height: 52,
   justifyContent: "center",
-  minWidth: 120,
-  padding: "0 14px"
+  minWidth: 128,
+  padding: "0 16px"
 };

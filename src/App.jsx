@@ -21,20 +21,46 @@ Check --> End[end,color=#fecaca] : approved`);
   }, [input]);
 
   return (
-    <div style={{ display: "flex", height: "100vh" }}>
-      
-      {/* Left panel */}
-      <div style={{ width: "30%", borderRight: "1px solid #eee" }}>
-        <Editor value={input} onChange={setInput} />
-        <div style={{ padding: 10 }}>
-          <ExportButton targetRef={graphRef} />
-        </div>
-      </div>
+    <main className="app-shell">
+      <section className="workspace">
+        <aside className="editor-panel">
+          <div className="brand-bar">
+            <div>
+              <h1>Graphly</h1>
+              <p>Diagram studio</p>
+            </div>
+            <span className="status-pill">Live</span>
+          </div>
 
-      {/* Right panel */}
-      <div style={{ width: "70%" }} ref={graphRef}>
-        <Diagram nodes={graph.nodes} edges={graph.edges} />
-      </div>
-    </div>
+          <div className="panel-section editor-section">
+            <div className="section-heading">
+              <span>DSL</span>
+              <span>{input.split("\n").filter(Boolean).length} lines</span>
+            </div>
+            <Editor value={input} onChange={setInput} />
+          </div>
+
+          <div className="panel-footer">
+            <div className="graph-stats" aria-label="Graph stats">
+              <span>{graph.nodes.length} nodes</span>
+              <span>{graph.edges.length} edges</span>
+            </div>
+            <ExportButton targetRef={graphRef} />
+          </div>
+        </aside>
+
+        <div className="diagram-panel">
+          <div className="diagram-toolbar">
+            <div>
+              <span className="toolbar-title">Canvas</span>
+              <span className="toolbar-meta">Auto layout</span>
+            </div>
+          </div>
+          <div className="diagram-surface" ref={graphRef}>
+            <Diagram nodes={graph.nodes} edges={graph.edges} />
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }

@@ -13,7 +13,8 @@ export default function ExportButton({ targetRef }) {
   };
 
   return (
-    <button onClick={handleExport}>
+    <button className="export-button" onClick={handleExport}>
+      <span aria-hidden="true">↓</span>
       Export PNG
     </button>
   );
