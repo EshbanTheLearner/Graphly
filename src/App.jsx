@@ -8,14 +8,20 @@ const example = `flowchart TD
     Plan -->|review| Check{Check}
     Check -->|approved| End([End])`;
 
-const DEFAULT_PANEL_WIDTH = 400;
+const DEFAULT_PANEL_WIDTH = 460;
 const MIN_PANEL_WIDTH = 320;
+
+function getInitialSplitWidth() {
+  if (typeof window === "undefined") return DEFAULT_PANEL_WIDTH;
+
+  return Math.min(Math.max(Math.floor(window.innerWidth * 0.45), 440), 520);
+}
 
 export default function App() {
   const [input, setInput] = useState(example);
   const [transparentExport, setTransparentExport] = useState(true);
   const [renderError, setRenderError] = useState("");
-  const [splitWidth, setSplitWidth] = useState(DEFAULT_PANEL_WIDTH);
+  const [splitWidth, setSplitWidth] = useState(getInitialSplitWidth);
   const [isDragging, setIsDragging] = useState(false);
 
   const graphRef = useRef(null);
