@@ -23,11 +23,21 @@ export default function App() {
   const [renderError, setRenderError] = useState("");
   const [splitWidth, setSplitWidth] = useState(getInitialSplitWidth);
   const [isDragging, setIsDragging] = useState(false);
+  const [theme, setTheme] = useState(() => {
+    if (typeof window === "undefined") return "light";
+
+    return localStorage.getItem("graphly-theme") || "light";
+  });
 
   const graphRef = useRef(null);
   const workspaceRef = useRef(null);
 
   const stats = ["Mermaid", "SVG render"];
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem("graphly-theme", theme);
+  }, [theme]);
 
   useEffect(() => {
     if (!isDragging) return undefined;
@@ -67,7 +77,17 @@ export default function App() {
               <h1>Graphly</h1>
               <p>Diagram studio</p>
             </div>
-            <span className="status-pill">Live</span>
+            <div className="brand-actions">
+              <button
+                type="button"
+                className="theme-toggle"
+                onClick={() => setTheme((current) => (current === "dark" ? "light" : "dark"))}
+                aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+              >
+                {theme === "dark" ? "☀️ Light" : "🌙 Dark"}
+              </button>
+              <span className="status-pill">Live</span>
+            </div>
           </div>
 
           <div className="panel-section editor-section">
@@ -120,7 +140,7 @@ export default function App() {
             </div>
           </div>
           <div className="diagram-surface" ref={graphRef}>
-            <MermaidDiagram source={input} onError={setRenderError} />
+            <MermaidDiagram source={input} onError={setRenderError} theme={theme} />
           </div>
         </div>
       </section>

@@ -1,14 +1,18 @@
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import mermaid from "mermaid";
 
-mermaid.initialize({
-  securityLevel: "strict",
-  startOnLoad: false,
-  theme: "base",
-  themeVariables: {
+const themePalette = {
+  dark: {
     background: "transparent",
-    fontFamily:
-      "Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif",
+    primaryColor: "#1e293b",
+    primaryTextColor: "#eff6ff",
+    primaryBorderColor: "#38bdf8",
+    lineColor: "#94a3b8",
+    secondaryColor: "#0f172a",
+    tertiaryColor: "#111827"
+  },
+  light: {
+    background: "transparent",
     primaryColor: "#dbeafe",
     primaryTextColor: "#0f172a",
     primaryBorderColor: "#93c5fd",
@@ -16,10 +20,17 @@ mermaid.initialize({
     secondaryColor: "#ccfbf1",
     tertiaryColor: "#fef3c7"
   }
+};
+
+mermaid.initialize({
+  securityLevel: "strict",
+  startOnLoad: false,
+  theme: "base",
+  themeVariables: themePalette.light
 });
 
-export default function MermaidDiagram({ source, onError }) {
-  const id = useId().replace(/:/g, "");
+export default function MermaidDiagram({ source, onError, theme = "light" }) {
+  const themeVariables = themePalette[theme] ?? themePalette.light;
   const [svg, setSvg] = useState("");
   const [scale, setScale] = useState(1);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
@@ -53,11 +64,21 @@ export default function MermaidDiagram({ source, onError }) {
   }, [svg, scale, offset]);
 
   useEffect(() => {
+    mermaid.initialize({
+      securityLevel: "strict",
+      startOnLoad: false,
+      theme: "base",
+      themeVariables
+    });
+  }, [themeVariables]);
+
+  useEffect(() => {
     let isCurrent = true;
 
     async function renderDiagram() {
       try {
-        const renderId = `graphly-${id}`;
+        setSvg("");
+        const renderId = `graphly-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
         const { svg: renderedSvg } = await mermaid.render(renderId, source);
 
         if (!isCurrent) return;
@@ -77,7 +98,7 @@ export default function MermaidDiagram({ source, onError }) {
     return () => {
       isCurrent = false;
     };
-  }, [id, onError, source]);
+  }, [onError, source, themeVariables]);
 
   const zoomIn = () => setScale((current) => Math.min(2.2, Number((current + 0.1).toFixed(2))));
   const zoomOut = () => setScale((current) => Math.max(0.8, Number((current - 0.1).toFixed(2))));

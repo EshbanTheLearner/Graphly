@@ -12,13 +12,36 @@
   text-rendering: optimizeLegibility;
 }
 
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --surface: #020617;
+  --panel: rgba(15, 23, 42, 0.92);
+  --panel-2: rgba(30, 41, 59, 0.96);
+  --text: #e5eefb;
+  --muted: #cbd5e1;
+  --border: rgba(148, 163, 184, 0.24);
+  --shadow: rgba(2, 6, 23, 0.45);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --surface: #f8fafc;
+  --panel: rgba(255, 255, 255, 0.82);
+  --panel-2: rgba(248, 250, 252, 0.9);
+  --text: #111827;
+  --muted: #64748b;
+  --border: rgba(148, 163, 184, 0.28);
+  --shadow: rgba(15, 23, 42, 0.14);
+}
+
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
   background:
     radial-gradient(circle at top left, rgba(20, 184, 166, 0.18), transparent 34rem),
-    linear-gradient(135deg, #f8fafc 0%, #eef2ff 48%, #f8fafc 100%);
+    linear-gradient(135deg, var(--surface) 0%, #111827 48%, var(--surface) 100%);
+  color: var(--text);
 }
 
 button,
@@ -31,15 +54,32 @@ textarea {
   padding: 18px;
 }
 
+.brand-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.theme-toggle {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 7px 10px;
+  background: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 800;
+}
+
 .workspace {
   display: grid;
   grid-template-columns: var(--split-width, 400px) 8px minmax(0, 1fr);
   height: calc(100vh - 36px);
   overflow: hidden;
-  border: 1px solid rgba(148, 163, 184, 0.34);
+  border: 1px solid var(--border);
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.72);
-  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.14);
+  background: var(--panel);
+  box-shadow: 0 24px 70px var(--shadow);
   backdrop-filter: blur(18px);
 }
 
@@ -48,8 +88,8 @@ textarea {
   min-width: 0;
   flex-direction: column;
   width: var(--split-width, 400px);
-  border-right: 1px solid rgba(148, 163, 184, 0.28);
-  background: rgba(248, 250, 252, 0.9);
+  border-right: 1px solid var(--border);
+  background: var(--panel-2);
 }
 
 .brand-bar {
@@ -62,7 +102,7 @@ textarea {
 
 .brand-bar h1 {
   margin: 0;
-  color: #111827;
+  color: var(--text);
   font-size: 28px;
   font-weight: 800;
   letter-spacing: 0;
@@ -70,7 +110,7 @@ textarea {
 
 .brand-bar p {
   margin: 2px 0 0;
-  color: #64748b;
+  color: var(--muted);
   font-size: 13px;
   font-weight: 600;
 }
@@ -131,7 +171,7 @@ textarea {
   align-items: center;
   justify-content: space-between;
   padding: 0 6px 10px;
-  color: #64748b;
+  color: var(--muted);
   font-size: 12px;
   font-weight: 800;
   text-transform: uppercase;
@@ -212,17 +252,17 @@ textarea {
   display: flex;
   min-width: 0;
   gap: 8px;
-  color: #475569;
+  color: var(--muted);
   font-size: 12px;
   font-weight: 800;
 }
 
 .graph-stats span {
   white-space: nowrap;
-  border: 1px solid rgba(148, 163, 184, 0.28);
+  border: 1px solid var(--border);
   border-radius: 999px;
   padding: 7px 10px;
-  background: #ffffff;
+  background: var(--panel);
 }
 
 .export-button {
@@ -273,7 +313,7 @@ textarea {
   display: grid;
   min-width: 0;
   grid-template-rows: auto 1fr;
-  background: #f8fafc;
+  background: var(--surface);
 }
 
 .diagram-toolbar {
@@ -281,21 +321,21 @@ textarea {
   align-items: center;
   justify-content: space-between;
   min-height: 66px;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.24);
+  border-bottom: 1px solid var(--border);
   padding: 0 24px;
-  background: rgba(255, 255, 255, 0.82);
+  background: var(--panel);
 }
 
 .toolbar-title {
   display: block;
-  color: #111827;
+  color: var(--text);
   font-size: 15px;
   font-weight: 800;
 }
 
 .toolbar-meta {
   display: block;
-  color: #64748b;
+  color: var(--muted);
   font-size: 12px;
   font-weight: 700;
 }
@@ -317,6 +357,12 @@ textarea {
     radial-gradient(circle at 78% 18%, rgba(20, 184, 166, 0.14), transparent 22rem);
 }
 
+:root[data-theme="dark"] .mermaid-stage {
+  background:
+    linear-gradient(rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.88)),
+    radial-gradient(circle at 78% 18%, rgba(45, 212, 191, 0.08), transparent 22rem);
+}
+
 .mermaid-stage.dragging {
   cursor: grabbing;
 }
@@ -334,16 +380,16 @@ textarea {
   border: 1px solid rgba(148, 163, 184, 0.34);
   border-radius: 10px;
   padding: 8px 10px;
-  background: rgba(255, 255, 255, 0.94);
-  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.12);
-  color: #0f172a;
+  background: var(--panel);
+  box-shadow: 0 10px 22px var(--shadow);
+  color: var(--text);
   cursor: pointer;
   font-size: 12px;
   font-weight: 800;
 }
 
 .canvas-controls button:hover {
-  background: #ffffff;
+  background: var(--panel-2);
 }
 
 .mermaid-minimap {
@@ -354,10 +400,10 @@ textarea {
   overflow: hidden;
   width: 180px;
   max-height: 180px;
-  border: 1px solid rgba(148, 163, 184, 0.32);
+  border: 1px solid var(--border);
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.92);
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+  background: var(--panel);
+  box-shadow: 0 18px 40px var(--shadow);
 }
 
 .mermaid-minimap-inner {
@@ -382,8 +428,8 @@ textarea {
   max-width: 100%;
   border-radius: 14px;
   padding: 24px;
-  background: rgba(255, 255, 255, 0.82);
-  box-shadow: 0 18px 42px rgba(15, 23, 42, 0.12);
+  background: var(--panel);
+  box-shadow: 0 18px 42px var(--shadow);
   transform-origin: center center;
 }
 
@@ -393,11 +439,11 @@ textarea {
 }
 
 .mermaid-empty-state {
-  border: 1px solid rgba(148, 163, 184, 0.32);
+  border: 1px solid var(--border);
   border-radius: 14px;
   padding: 18px 22px;
-  background: rgba(255, 255, 255, 0.84);
-  color: #64748b;
+  background: var(--panel);
+  color: var(--muted);
   font-size: 13px;
   font-weight: 800;
 }
