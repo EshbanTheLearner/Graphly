@@ -33,7 +33,7 @@ textarea {
 
 .workspace {
   display: grid;
-  grid-template-columns: minmax(320px, 400px) minmax(0, 1fr);
+  grid-template-columns: var(--split-width, 400px) 8px minmax(0, 1fr);
   height: calc(100vh - 36px);
   overflow: hidden;
   border: 1px solid rgba(148, 163, 184, 0.34);
@@ -47,6 +47,7 @@ textarea {
   display: flex;
   min-width: 0;
   flex-direction: column;
+  width: var(--split-width, 400px);
   border-right: 1px solid rgba(148, 163, 184, 0.28);
   background: rgba(248, 250, 252, 0.9);
 }
@@ -251,6 +252,23 @@ textarea {
   transform: translateY(0);
 }
 
+.divider {
+  align-self: stretch;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(148, 163, 184, 0.3), rgba(148, 163, 184, 0.55));
+  cursor: col-resize;
+  padding: 0;
+  width: 8px;
+  transition: background-color 160ms ease, transform 160ms ease;
+}
+
+.divider:hover,
+.divider.dragging {
+  background: linear-gradient(180deg, rgba(45, 212, 191, 0.45), rgba(14, 165, 233, 0.55));
+  transform: scaleX(1.08);
+}
+
 .diagram-panel {
   display: grid;
   min-width: 0;
@@ -392,6 +410,10 @@ textarea {
     grid-template-rows: minmax(320px, 44vh) 1fr;
     height: calc(100vh - 20px);
     border-radius: 14px;
+  }
+
+  .divider {
+    display: none;
   }
 
   .editor-panel {
