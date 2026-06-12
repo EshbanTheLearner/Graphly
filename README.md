@@ -1,52 +1,33 @@
 # Graphly
-Graphly is a lightweight diagram studio for turning text-based graph syntax into interactive, auto-laid-out diagrams that can be previewed and exported instantly.
+Graphly is a Mermaid-first diagram studio for writing and previewing Mermaid syntax, then exporting sharp PNG images directly from the browser.
 
 ## What’s included
 
-- Two editing modes: Graphly DSL and Mermaid syntax
-- Automatic graph layout with Dagre
-- Interactive canvas rendering with React Flow
-- High-resolution PNG exports with improved export scaling for sharper images
+- Mermaid-only editing and rendering
+- Live preview with render error feedback
+- High-resolution PNG exports for sharper images
 - Optional transparent background export toggle
 - No backend required
 
 ## Features
 
-- Simple DSL input such as `A --> B`
 - Full Mermaid rendering support via the official Mermaid package
-- Edge labels and node metadata
-- Colored nodes and node types: start, end, process, decision
-- Auto layout for graph-style diagrams
+- Fast editor and preview workflow in the browser
 - Export to PNG with higher-quality rendering
-- Live preview and render error feedback in the editor
+- Transparent background option for presentations and docs
 
-## Example DSL
-A --> B <br>
-B --> C <br>
-A --> D
-
-## Level 2 DSL
-```txt
-Start[start,color=#bbf7d0] --> Plan[process,color=#bfdbfe] : begin
-Plan --> Check[decision,color=#fde68a] : review
-Check --> End[end,color=#fecaca] : approved
-```
-
-Node metadata goes inside brackets. The first bare value is treated as the node type, and key/value attributes can be used for `type` and `color`.
-
-## Modes
-
-### Graphly DSL
-Use the Graphly DSL for quick, structured graph definitions with layout and node metadata.
+## Example Mermaid diagram
 
 ```txt
-Start[start,color=#bbf7d0] --> Plan[process,color=#bfdbfe] : begin
-Plan --> Check[decision,color=#fde68a] : review
-Check --> End[end,color=#fecaca] : approved
+flowchart TD
+    Start([Start]) -->|begin| Plan[Plan]
+    Plan -->|review| Check{Check}
+    Check -->|approved| End([End])
 ```
 
-### Mermaid Mode
-Graphly can render Mermaid diagrams directly using Mermaid's official browser renderer.
+## Mermaid support
+
+Graphly renders Mermaid diagrams directly using Mermaid's official browser renderer.
 
 ```txt
 flowchart TD
@@ -79,8 +60,6 @@ PNG exports now use a higher rendering scale, which produces clearer, sharper im
 ## Tech Stack
 
 - React + Vite
-- React Flow
-- Dagre
 - Mermaid
 - html-to-image
 
