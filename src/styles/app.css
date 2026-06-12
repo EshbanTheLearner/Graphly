@@ -137,7 +137,7 @@ textarea {
   text-transform: uppercase;
 }
 
-.dsl-editor {
+.mermaid-editor {
   width: 100%;
   min-height: 0;
   flex: 1;
@@ -154,7 +154,7 @@ textarea {
   line-height: 1.7;
 }
 
-.dsl-editor:focus {
+.mermaid-editor:focus {
   border-color: rgba(20, 184, 166, 0.74);
   box-shadow:
     0 0 0 3px rgba(20, 184, 166, 0.14),
